@@ -12,9 +12,10 @@ CREATE TABLE centrais (
 CREATE TABLE notas (
     id               INT           AUTO_INCREMENT PRIMARY KEY,
     id_central       INT           NOT NULL,
-    titulo           VARCHAR(50)   NOT NULL UNIQUE,
+    titulo           VARCHAR(50)   NOT NULL,
     texto            TEXT,
     data_criacao     DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP,
     data_atualizacao DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_central) REFERENCES centrais(id) ON DELETE CASCADE
+    FOREIGN KEY (id_central) REFERENCES centrais(id) ON DELETE CASCADE,
+    UNIQUE KEY uq_central_titulo (id_central, titulo)
 );
