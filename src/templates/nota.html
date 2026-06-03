@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <title>Bloco de notas - {% if nota %}{{ nota.titulo }}{% else %}Nova Nota{% endif %}</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="bg-stone-900 text-stone-100">
+    <form 
+        action="{% if nota %}{{ url_for('main.atualizar_nota', central=cd, id_nota=nota.id) }}{% else %}{{ url_for('main.cadastrar_nota', central=cd) }}{% endif %}" 
+        method="POST"
+    >
+        
+        <div class="fixed bottom-5 right-5 z-40">
+            <button type="submit" class="bg-yellow-500 px-6 h-14 lg:h-auto lg:py-3 rounded-full flex items-center justify-center gap-3 text-white text-2xl lg:text-xl cursor-pointer hover:bg-yellow-600 transition-colors shadow-lg">
+                Salvar 
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                </svg>
+            </button>
+        </div>
+        
+        <main class="px-5 pt-15 pb-5 flex flex-col gap-5 max-w-[60rem] mx-auto mb-10">
+            
+            <div>
+                <a href="{{ url_for('main.central', central=cd) }}" class="mb-5 text-yellow-500 hover:underline">&lt; Voltar</a>
+            </div>
+            
+            <input 
+                type="text" 
+                name="titulo"
+                value="{% if nota %}{{ nota.titulo }}{% endif %}"
+                required
+                maxlength="50"
+                class="text-4xl font-bold w-full outline-none bg-transparent" 
+                placeholder="Título"
+            >
+            
+            <textarea 
+                name="texto"
+                class="text-lg text-white/80 w-full focus:outline-none focus:ring-2 focus:ring-yellow-500/50 bg-stone-800 px-3 py-2 rounded-xl resize-none field-sizing-content" 
+                placeholder="Comece a escrever sua nota aqui..."
+            >{% if nota and nota.texto %}{{ nota.texto }}{% endif %}</textarea>
+            
+        </main>
+    </form>
+</body>
+</html>

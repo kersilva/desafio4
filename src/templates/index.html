@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <title>Bloco de notas</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="bg-stone-900 text-stone-100">
+    <main class="px-5 pb-5 flex flex-col h-screen justify-center gap-5 max-w-[30rem] mx-auto">
+        <span class="text-xl text-white/80">Acesse ou crie a sua central</span>
+        
+        <form action="{{ url_for('main.acessar_ou_criar') }}" method="POST" class="flex flex-col gap-5 w-full">
+            <input 
+                type="text" 
+                id="chave-input"
+                name="cd_central" 
+                class="text-lg text-white/80 w-full focus:outline-none focus:ring-2 focus:ring-yellow-500/50 bg-stone-800 px-3 py-2 rounded-xl" 
+                placeholder="Chave de acesso (8 caracteres)" 
+                maxlength="8"
+                required
+                autocomplete="off"
+            >
+            <button 
+                type="submit"
+                id="acessar-btn"
+                class="w-full bg-yellow-500 disabled:bg-yellow-500/30 disabled:text-stone-100/30 disabled:cursor-auto rounded-xl px-3 py-2 flex items-center justify-center gap-3 text-white text-lg cursor-pointer hover:bg-yellow-600 transition-colors shadow-lg" 
+                disabled
+            >
+                Acessar / Criar
+            </button>
+        </form>
+        
+    </main>
+
+    <script>
+        const input = document.getElementById('chave-input');
+        const button = document.getElementById('acessar-btn');
+
+        input.addEventListener('input', () => {
+            button.disabled = input.value.trim().length === 0;
+        });
+    </script>
+</body>
+
+</html>
