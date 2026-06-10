@@ -1,11 +1,10 @@
 from flask import Flask
 from dotenv import load_dotenv
-from src.views.routes import main_bp
+from views.routes import main_bp
 
 load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = 'uma_chave_secreta_bem_segura_aqui'
 
 app.register_blueprint(main_bp)
 
